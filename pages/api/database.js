@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// USING MYSQL INSTEAD OF POSTGRES
+
 const pgp = require('pg-promise')({
     noWarnings: true,
     connect(client, dc, useCount) {
@@ -8,18 +10,8 @@ const pgp = require('pg-promise')({
     }
 })
 
-const db = pgp(`postgres://admin:aeriaforever@rds-mysql-aeria-mvp2.ccllphi2wcdu.us-east-1.rds.amazonaws.com:3306/admin`)
-// postgres://jjgxrmao:bvXj-yOH69T-ylKR8SAPEwGubYakdenJ@raja.db.elephantsql.com:5432/jjgxrmao
-//postgres://UserName:Password@Endpoint:5432/nameofdb
-// db.func('version')
-//     .then(data => {
-//         // SUCCESS
-//         data.version = 'PostgreSQL 9.5.1, compiled by Visual C++ build 1800, 64-bit'
-//         console.log(data.version)
-//     })
-//     .catch(error => {
-//         console.log(error)
-//     });
+// const db = pgp(``)
+
 
 export default async (req, res) => {
     // res.json({ hello: 'world' })
@@ -40,14 +32,3 @@ export default async (req, res) => {
         res.status(500).send({ message: ["Error creating on the server"], error: error })
     }
 }
-
-// Endpoint
-
-
-
-// // Port
-
-// // 3306
-
-
-// // PW: aeria4ever or aeriaforever
