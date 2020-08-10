@@ -1,0 +1,40 @@
+@import 'bulma/bulma';
+@import './colors.scss';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $color-primary-1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.footer {
+  background-color: #fafafa;
+  // padding: 1.5rem 0.75rem 3rem;
+}
+
+#navDescription {
+  padding-left: 14px;
+}
+
