@@ -1,6 +1,10 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Layout, { siteTitle } from '../components/layout'
+import Head from 'next/head';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import Layout, { siteTitle } from '../components/layout';
+import SearchBar from '../components/searchBar';
+
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 
@@ -15,6 +19,43 @@ export async function getStaticProps() {
 
 
 export default function Home({ allPostsData }) {
+
+  const [songs, setSongs] = useState(null)
+  let display;
+  useEffect(() => {
+    (async () => {
+      try {
+        const results = await axios('http://localhost:3000/api/database')
+        setSongs(results.data)
+      }
+      catch (error) {
+        console.log(error)
+      }
+    })()
+  }, []);
+
+  //if songs is null, display search songs
+  if (!songs) display = 'please wait for song'
+  //if songs has data render the artist, song and tempo in a div
+  else {
+    console.log(songs, typeof songs)
+    display = Object.keys(songs).map((song, i) => {
+      if (i < 10) {
+        return (
+          <div key={`index-${i}`} >
+            <div className="card">
+              <div className="card-content">
+                <div>Artist: {songs[i].artist}</div>
+                <div>Song: {songs[i].song}</div>
+                <div>Tempo: {songs[i].tempo}</div>
+              </div>
+            </div>
+            <br />
+          </div >
+        )
+      }
+    })
+  }
   return (
     <Layout home>
       <Head>
@@ -23,12 +64,17 @@ export default function Home({ allPostsData }) {
         {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/css/uikit.min.css" /> */}
       </Head>
       <div className="appLayout">
-        <section className="section is-medium">
-          <div className="container">
-            <h1 className="title">Section</h1>
-            <h2 className="subtitle">
-              A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
-            </h2>
+
+        <section className="section" >
+          <div className="columns">
+            <div className="column is-one-fifth">
+              <h1 className="title">Find Artist</h1>
+              <SearchBar></SearchBar>
+            </div>
+            <div className="column" id="graphDisplay">
+              <h1 className="title">Graph</h1>
+              {display}
+            </div>
           </div>
         </section>
         <footer className="footer">

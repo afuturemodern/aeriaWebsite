@@ -25,8 +25,6 @@ export default function About() {
                     </div>
                 </footer>
             </div>
-
-
         </Layout>
     )
 }
