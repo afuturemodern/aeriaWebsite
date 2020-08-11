@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'serverless-mysql'
 // USING MYSQL
 //declare mysql db
-console.log('env files', process.env.HOST, process.env.DATABASE, process.env.DB_USERNAME, process.env.PASSWORD)
+
 const db = mysql({
     config: {
         host: process.env.HOST,
