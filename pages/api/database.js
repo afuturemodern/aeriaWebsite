@@ -1,9 +1,12 @@
 
 import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'serverless-mysql'
-// USING MYSQL
-//declare mysql db
-console.log('env files', process.env.HOST, process.env.DATABASE, process.env.DB_USERNAME, process.env.PASSWORD)
+/**
+ * databse.js connects to the database and returns a table object
+ * 
+ * @var {object} db connects to the MySQL database 
+ */
+
 const db = mysql({
     config: {
         host: process.env.HOST,
@@ -13,7 +16,7 @@ const db = mysql({
     }
 })
 
-
+// SQL Query
 const selectAllquery = 'SELECT * from songs'
 
 export default async (req, res) => {
