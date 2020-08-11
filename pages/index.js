@@ -34,28 +34,23 @@ export default function Home({ allPostsData }) {
     })()
   }, []);
 
-  //if songs is null, display search songs
-  if (!songs) display = 'please wait for song'
-  //if songs has data render the artist, song and tempo in a div
-  else {
-    console.log(songs, typeof songs)
-    display = Object.keys(songs).map((song, i) => {
-      if (i < 10) {
-        return (
-          <div key={`index-${i}`} >
-            <div className="card">
-              <div className="card-content">
-                <div>Artist: {songs[i].artist}</div>
-                <div>Song: {songs[i].song}</div>
-                <div>Tempo: {songs[i].tempo}</div>
-              </div>
+  //if songs is null, display loading message, else display search songs
+  display = !songs ? 'loading song..' : Object.keys(songs).map((song, i) => {
+    if (i < 10) {
+      return (
+        <div key={`index-${i}`} >
+          <div className="card">
+            <div className="card-content">
+              <div>Artist: {songs[i].artist}</div>
+              <div>Song: {songs[i].song}</div>
+              <div>Tempo: {songs[i].tempo}</div>
             </div>
-            <br />
-          </div >
-        )
-      }
-    })
-  }
+          </div>
+          <br />
+        </div >
+      )
+    }
+  })
   return (
     <Layout home>
       <Head>
