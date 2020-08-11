@@ -1,34 +1,29 @@
+// require('dotenv').config()
 import { NextApiRequest, NextApiResponse } from 'next'
+import mysql from 'serverless-mysql'
+// USING MYSQL
+//declare mysql db
 
-// USING MYSQL INSTEAD OF POSTGRES
-
-const pgp = require('pg-promise')({
-    noWarnings: true,
-    connect(client, dc, useCount) {
-        const cp = client.connectionParameters;
-        console.log('Connected to database:', cp.database);
+const db = mysql({
+    config: {
+        host: process.env.HOST,
+        database: process.env.DATABASE,
+        user: process.env.USER,
+        password: process.env.PASSWORD
     }
 })
 
-// const db = pgp(``)
 
+const selectAllquery = 'SELECT * from songs'
 
 export default async (req, res) => {
-    // res.json({ hello: 'world' })
     try {
-        console.log('entered db endpoint')
-        // const { name, price, imageUrl, description } = req.query
-
-        // if (!name || !price || !imageUrl || !description) {
-        //     return res.status(422).send({ error: ['Missing one or more fields'] })
-        // }
-
-        const product = await db.func('SELECT * FROM songs')
-        console.log('product of query', product)
-        res.status(200).json(product)
-
+        const results = await db.query(selectAllquery)
+        await db.end()
+        // console.log(results)
+        res.status(200).json(results)
+        return
     } catch (error) {
-        // console.error(error);
-        res.status(500).send({ message: ["Error creating on the server"], error: error })
+        return console.log(error)
     }
 }

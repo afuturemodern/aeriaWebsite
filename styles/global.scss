@@ -36,5 +36,15 @@ img {
 
 #navDescription {
   padding-left: 14px;
+  font-size: 14px
 }
 
+.navbar{
+  background-color: $color-primary-1;
+}
+
+#graphDisplay {
+  // background-color: blueviolet;
+  overflow: auto;
+  height: 60vh
+}

@@ -8,7 +8,7 @@ export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home }) {
     return (
-        <div className={styles.container}>
+        <div container>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta
@@ -23,27 +23,18 @@ export default function Layout({ children, home }) {
                 />
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
-                <link
-                    rel="stylesheet"
-                    src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js"
-                />
-                <script
-                    defer
-                    src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js"
-                />
-                <script
-                    defer
-                    src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit-icons.min.js"
-                />
             </Head>
             <header className={styles.header}>
                 {home ? (
-                    <>
-                        <nav className="navbar" role="navigation" aria-label="main navigation">
+                    <><div>
+
+                        <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
                             <div className="navbar-brand">
-                                <a className="navbar-item" href="/">
-                                    Aeria
-                                </a>
+                                <Link href="/">
+                                    <a className="navbar-item" >
+                                        Aeria
+                                    </a>
+                                </Link>
                             </div>
                             <div id="navbarBasicExample" className="navbar-menu">
                                 <div className="navbar-start">
@@ -64,6 +55,7 @@ export default function Layout({ children, home }) {
                                 </div>
                             </div>
                         </nav>
+                    </div>
                         <p className="content" id="navDescription">a FutureModern app</p>
                     </>
                 ) : (
