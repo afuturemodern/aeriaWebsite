@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import mysql from 'serverless-mysql'
 /**
  * databse.js connects to the database and returns a table object
- * 
- * @var {object} db connects to the MySQL database 
+ *
+ * @var {object} db connects to the MySQL database
  */
 
 const db = mysql({
