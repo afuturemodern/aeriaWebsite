@@ -8,7 +8,7 @@ export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home }) {
     return (
-        <div container>
+        <div container="true">
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta
@@ -65,7 +65,7 @@ export default function Layout({ children, home }) {
                     </>
                 ) : (
                         <>
-                            <nav className="navbar" role="navigation" aria-label="main navigation">
+                            <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
                                 <div className="navbar-brand"><strong>
 
                                 </strong>

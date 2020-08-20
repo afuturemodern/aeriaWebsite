@@ -50,7 +50,7 @@ export default function Home({ results }) {
 
         <section className="section" >
           <div className="columns">
-            <div className="column is-one-fifth">
+            <div className="column is-one-fifth" id="bgColumn">
               <h1 className="title">Find Artist</h1>
               <SearchBar></SearchBar>
             </div>
@@ -58,7 +58,7 @@ export default function Home({ results }) {
               <h1 className="title">Graph</h1>
               <div id="graphDisplay">
                 <Graph></Graph>
-
+                {/* {display} */}
               </div>
               <div>{() => console.log(results)}</div>
             </div>
@@ -68,7 +68,7 @@ export default function Home({ results }) {
           <div className="content has-text-centered">
             <p>
               <strong>Aeria</strong> by <a href="#">FutureModern</a>. The source code is licensed
-          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+          <a href="http://opensource.org/licenses/mit-license.php"> MIT</a>. The website content
           is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
         </p>
           </div>

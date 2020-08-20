@@ -9,6 +9,7 @@ body {
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  background-color: #fdfdfd;
 }
 
 * {
@@ -36,15 +37,20 @@ img {
 
 #navDescription {
   padding-left: 14px;
-  font-size: 14px
+  font-size: 14px;
 }
 
 .navbar{
-  background-color: $color-primary-1;
+  background-color: $white;
 }
 
-#graphDisplay {
+// #graphDisplay {
   // background-color: blueviolet;
-  overflow: auto;
-  height: 60vh
+  // overflow: auto;
+  // height: 80vh;
+  // padding-bottom: 20vh;
+// }
+
+#bgColumn{
+  background-color: ghostwhite;
 }

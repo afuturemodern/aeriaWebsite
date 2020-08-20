@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios'
+
 import D3Component from './d3display';
 
 let vis;
@@ -15,8 +17,15 @@ export default function ReactComponent() {
     useEffect(initVis, [data]);
     useEffect(updateVisOnResize, [width, height]);
 
-    function fetchData() {
-        Promise.resolve().then(() => setData(['a', 'b', 'c']));
+    async function fetchData() {
+        // Promise.resolve().then(() => setData(['a', 'b', 'c', 'd', 'e']));
+        try {
+            const results = await axios('http://localhost:3000/api/database')
+            // console.log('fetch results --> ', results.data)
+            setData(results.data) //an array of objects
+        } catch (error) {
+            return { error }
+        }
     }
 
     function handleResizeEvent() {
@@ -24,8 +33,8 @@ export default function ReactComponent() {
         const handleResize = () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function () {
-                setWidth(window.innerWidth);
-                setHeight(window.innerHeight);
+                setWidth(width);
+                setHeight(height);
             }, 300);
         };
         window.addEventListener('resize', handleResize);
@@ -43,6 +52,7 @@ export default function ReactComponent() {
                 height,
                 onDatapointClick: setActive
             };
+            console.log(d3Props)
             vis = new D3Component(refElement.current, d3Props);
         }
     }
@@ -53,7 +63,7 @@ export default function ReactComponent() {
 
     return (
         <div className='react-world'>
-            <div>{active}</div>
+            {/* <div>{active}</div> */}
             <div ref={refElement} />
         </div>
     );
