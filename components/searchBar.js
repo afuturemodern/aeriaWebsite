@@ -7,7 +7,7 @@ export default function Searchbar() {
                 <input className="input" type="text" placeholder="enter artist name" />
             </div>
             <div className="control">
-                <a className="button">S</a>
+                <a className="button"><i className="fas fa-search"></i></a>
 
             </div>
         </div>

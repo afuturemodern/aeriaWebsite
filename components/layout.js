@@ -8,7 +8,7 @@ export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home }) {
     return (
-        <div container>
+        <div container="true">
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta
@@ -38,9 +38,14 @@ export default function Layout({ children, home }) {
                             </div>
                             <div id="navbarBasicExample" className="navbar-menu">
                                 <div className="navbar-start">
-                                    <a className="navbar-item">
-                                        Description
-                                    </a>
+                                    <div className="navbar-item">
+                                        <div className="buttons">
+                                            <div className="button is-light">
+                                                Music Search Engine
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div className="navbar-end">
                                     <div className="navbar-item">
@@ -60,7 +65,7 @@ export default function Layout({ children, home }) {
                     </>
                 ) : (
                         <>
-                            <nav className="navbar" role="navigation" aria-label="main navigation">
+                            <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
                                 <div className="navbar-brand"><strong>
 
                                 </strong>
