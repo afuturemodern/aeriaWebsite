@@ -40,6 +40,8 @@ export default class D3Display {
                 return uniqueVals.hasOwnProperty(el) ? false : (uniqueVals[el] = true)
             })
         }
+
+
         // numRange creates 0-11 range of notes from data
         let numRange = Object.keys(removeDuplicates(allAxis));
         let total = numRange.length
@@ -50,6 +52,8 @@ export default class D3Display {
         let rScale = d3.scaleLinear()
             .range([0, radius])
             .domain([0, maxValue])
+
+
 
         //mode range will always be constant
         // g creates the area to draw on
@@ -82,7 +86,7 @@ export default class D3Display {
         //create key line points from center
         //REMOVE DUPLICATES from DATA pull filter range to be 1[7]
         let axis = axisGrid.selectAll('.axis')
-            .data(numRange)
+            .data(numRange) // [0-11]
             .join('g')
             .attr('class', 'axis')
         // //append the lines
@@ -97,9 +101,29 @@ export default class D3Display {
         //create key names on each line
         axis.append('text')
             .attr('class', 'legend')
-            .style('fontt-size', '11px')
+            .style('font-size', '11px')
             .attr('text-anchor', 'middle')
             .attr('dy', '0.35em')
+            .attr('x', (d, i) => rScale(maxValue * 1.25) * Math.cos(angleSlice * i - Math.PI / 2))
+            .attr('y', (d, i) => rScale(maxValue * 1.25) * Math.sin(angleSlice * i - Math.PI / 2))
+            .text((d) => {
+                const keysToString = {
+                    '0': 'c',
+                    '1': 'c#',
+                    '2': 'd',
+                    '3': 'd#',
+                    '4': 'e',
+                    '5': 'f',
+                    '6': 'f#',
+                    '7': 'g',
+                    '8': 'g#',
+                    '9': 'a',
+                    '10': 'a#',
+                    '11': 'b',
+                }
+                return keysToString[d]
+            })
+            .call(wrap, 60)
 
         // svg.selectAll('circle')
         //     .data(data)
@@ -125,3 +149,31 @@ export default class D3Display {
             .attr('cy', () => 0.1 * height);
     }
 }
+
+function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.4, // ems
+            y = text.attr("y"),
+            x = text.attr("x"),
+            dy = parseFloat(text.attr("dy")),
+            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+
+        console.log('this text', this)
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                console.log('tspan --> ', tspan)
+                tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            }
+        }
+    });
+}//wrap	
