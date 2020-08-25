@@ -17,7 +17,7 @@ const db = mysql({
 })
 
 // SQL Query
-const selectAllquery = 'SELECT * from spotify_songs'
+const selectAllquery = 'SELECT * from songs_spotify'
 
 export default async (req, res) => {
     try {

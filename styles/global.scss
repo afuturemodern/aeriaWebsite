@@ -1,6 +1,9 @@
 @import 'bulma/bulma';
 @import './colors.scss';
-
+// @import "./fontawesome/fontawesome";
+// @import "./fontawesome/fa-brands";
+// @import "./fontawesome/fa-regular";
+// @import "./fontawesome/fa-solid";
 html,
 body {
   padding: 0;
@@ -52,5 +55,6 @@ img {
 // }
 
 #bgColumn{
-  background-color: ghostwhite;
+  background-color: rgba(250, 248, 195,0.1);
+  
 }

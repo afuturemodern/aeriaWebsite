@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 
-import D3Component from './d3display';
+import D3Component from '../lib/d3display';
 
 let vis;
 
@@ -17,15 +17,17 @@ export default function ReactComponent() {
     useEffect(initVis, [data]);
     useEffect(updateVisOnResize, [width, height]);
 
-    async function fetchData() {
-        // Promise.resolve().then(() => setData(['a', 'b', 'c', 'd', 'e']));
-        try {
-            const results = await axios('http://localhost:3000/api/database')
-            // console.log('fetch results --> ', results.data)
-            setData(results.data) //an array of objects
-        } catch (error) {
-            return { error }
+    function fetchData() {
+        const runFetch = async () => {
+            try {
+                const results = await axios('http://localhost:3000/api/database')
+                await setData(results.data) //an array of objects
+            } catch (error) {
+                return { error }
+            }
         }
+        runFetch()
+        // Promise.resolve().then(() => setData(['a', 'b', 'c', 'd', 'e']));
     }
 
     function handleResizeEvent() {

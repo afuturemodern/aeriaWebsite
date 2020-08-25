@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import axios from 'axios'
 
+// library.add(fab, faSearch)
+
 import Layout, { siteTitle } from '../components/layout';
 import SearchBar from '../components/searchBar';
 import Graph from '../components/graph'
@@ -30,8 +32,8 @@ export default function Home({ results }) {
       <div key={`index-${i}`} >
         <div className="card">
           <div className="card-content">
-            <div>Artist: {results[i].artist}</div>
-            <div>Song: {results[i].song}</div>
+            <div>Artist: {results[i].artists}</div>
+            <div>Song: {results[i].name}</div>
             <div>Tempo: {results[i].tempo}</div>
           </div>
         </div>
@@ -44,6 +46,7 @@ export default function Home({ results }) {
     <Layout home>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/_next/static/style.css" />
         <title>{siteTitle}</title>
       </Head>
       <div className="appLayout">
@@ -57,8 +60,8 @@ export default function Home({ results }) {
             <div className="column" >
               <h1 className="title">Graph</h1>
               <div id="graphDisplay">
-                <Graph></Graph>
-                {/* {display} */}
+                {/* <Graph></Graph> */}
+                {display}
               </div>
               <div>{() => console.log(results)}</div>
             </div>
