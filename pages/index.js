@@ -2,36 +2,26 @@ import Head from 'next/head';
 import Link from 'next/link';
 import axios from 'axios'
 
+// library.add(fab, faSearch)
+
 import Layout, { siteTitle } from '../components/layout';
 import SearchBar from '../components/searchBar';
 import Graph from '../components/graph'
 
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
+// import { getSortedPostsData } from '../lib/posts'
 
-export async function getStaticProps() {
-  try {
-    const allPostsData = getSortedPostsData()
-    const results = await axios('http://localhost:3000/api/database')
-    return {
-      props: {
-        results: results.data
-      }
-    }
-  } catch (error) {
-    return { error }
-  }
-}
 
-export default function Home({ results }) {
+
+function Home({ results }) {
 
   const display = !results ? 'loading song..' : Object.keys(results).map((song, i) => {
     return (
       <div key={`index-${i}`} >
         <div className="card">
           <div className="card-content">
-            <div>Artist: {results[i].artist}</div>
-            <div>Song: {results[i].song}</div>
+            <div>Artist: {results[i].artists}</div>
+            <div>Song: {results[i].name}</div>
             <div>Tempo: {results[i].tempo}</div>
           </div>
         </div>
@@ -44,6 +34,7 @@ export default function Home({ results }) {
     <Layout home>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/_next/static/style.css" />
         <title>{siteTitle}</title>
       </Head>
       <div className="appLayout">
@@ -60,7 +51,7 @@ export default function Home({ results }) {
                 <Graph></Graph>
                 {/* {display} */}
               </div>
-              <div>{() => console.log(results)}</div>
+              <div></div>
             </div>
           </div>
         </section>
@@ -77,3 +68,15 @@ export default function Home({ results }) {
     </Layout>
   )
 }
+
+export async function getServerSideProps() {
+  // const allPostsData = getSortedPostsData()
+  const results = await axios(process.env.API_CALL)
+  return {
+    props: {
+      results: results.data
+    },
+  }
+}
+
+export default Home

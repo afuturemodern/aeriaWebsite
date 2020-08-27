@@ -70,9 +70,9 @@ export default function Layout({ children, home }) {
 
                                 </strong>
                                     <Link href="/">
-                                        <a className="navbar-item" >
+                                        <div className="navbar-item" >
                                             Aeria
-                                </a>
+                                        </div>
                                     </Link>
                                 </div>
                                 <div id="navbarBasicExample" className="navbar-menu">
