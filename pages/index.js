@@ -9,23 +9,11 @@ import SearchBar from '../components/searchBar';
 import Graph from '../components/graph'
 
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
+// import { getSortedPostsData } from '../lib/posts'
 
-export async function getStaticProps() {
-  try {
-    const allPostsData = getSortedPostsData()
-    const results = await axios('http://localhost:3000/api/database')
-    return {
-      props: {
-        results: results.data
-      }
-    }
-  } catch (error) {
-    return { error }
-  }
-}
 
-export default function Home({ results }) {
+
+function Home({ results }) {
 
   const display = !results ? 'loading song..' : Object.keys(results).map((song, i) => {
     return (
@@ -60,10 +48,10 @@ export default function Home({ results }) {
             <div className="column" >
               <h1 className="title">Graph</h1>
               <div id="graphDisplay">
-                {/* <Graph></Graph> */}
-                {display}
+                <Graph></Graph>
+                {/* {display} */}
               </div>
-              <div>{() => console.log(results)}</div>
+              <div></div>
             </div>
           </div>
         </section>
@@ -80,3 +68,15 @@ export default function Home({ results }) {
     </Layout>
   )
 }
+
+export async function getServerSideProps() {
+  // const allPostsData = getSortedPostsData()
+  const results = await axios(process.env.API_CALL)
+  return {
+    props: {
+      results: results.data
+    },
+  }
+}
+
+export default Home

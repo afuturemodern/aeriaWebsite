@@ -40,6 +40,7 @@
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
     "babel-jest": "^26.3.0",
+    "babel-plugin-styled-components": "^1.11.1",
     "jest": "^26.4.1",
     "jest-dom": "^4.0.0"
   }
