@@ -11,3 +11,4 @@ Instructions
 # preview
 
 ![screenshot of aeria ux](https://afuturemodern.keybase.pub/aeria/aeriawebsite%20screenshot%201.png)
+![closeup of ux](https://afuturemodern.keybase.pub/aeria/aeriawebsite%20screenshot%202.png)
