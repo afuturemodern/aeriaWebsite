@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 
 import D3Component from '../lib/d3display';
+// import { set } from 'd3';
 
 let vis;
 
@@ -9,13 +10,27 @@ export default function ReactComponent() {
     const [data, setData] = useState(null);
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(600);
-    const [active, setActive] = useState(null);
+    const [active, setActive] = useState(false);
+    const [keySig, setKeySig] = useState('Major')
     const refElement = useRef(null);
 
     useEffect(fetchData, []);
     useEffect(handleResizeEvent, []);
     useEffect(initVis, [data]);
     useEffect(updateVisOnResize, [width, height]);
+
+    function majorOrMinor() {
+      if (active === false) {
+          console.log('clicked', active)
+          setActive(true)
+          setKeySig('Major')
+        }
+      else {
+        console.log('clicked', active)
+        setActive(false)
+          setKeySig('Minor')
+        } 
+    }
 
     function fetchData() {
         const runFetch = async () => {
@@ -65,7 +80,8 @@ export default function ReactComponent() {
 
     return (
         <div className='react-world'>
-            {/* <div>{active}</div> */}
+            <div>{keySig}</div>
+            <input type="checkbox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
             <div ref={refElement} />
         </div>
     );
