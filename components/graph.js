@@ -93,7 +93,7 @@ export default function ReactComponent() {
 
     return (
         <div className='react-world'>
-            <div>{keySig}</div>
+            {/* <div>{keySig}</div> */}
             <input type="checkbox" className={styles.checkBox} id="checkBox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
             <div id="d3Graph" key={new Date().getTime()} ref={refElement} />
         </div>
