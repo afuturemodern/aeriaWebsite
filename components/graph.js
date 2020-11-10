@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
-
+import styles from './graph.module.css';
 import D3Component from '../lib/d3display';
 // import { set } from 'd3';
 
@@ -94,7 +94,7 @@ export default function ReactComponent() {
     return (
         <div className='react-world'>
             <div>{keySig}</div>
-            <input type="checkbox" id="checkBox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
+            <input type="checkbox" className={styles.checkBox} id="checkBox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
             <div id="d3Graph" key={new Date().getTime()} ref={refElement} />
         </div>
     );
