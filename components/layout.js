@@ -79,7 +79,7 @@ export default function Layout({ children, home }) {
               </div>
               <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-start">
-                  <a className="navbar-item">Description</a>
+                  <a className="navbar-item">Music Search Engine</a>
                 </div>
                 <div className="navbar-end">
                   <div className="navbar-item">

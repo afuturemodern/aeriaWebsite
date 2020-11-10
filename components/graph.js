@@ -11,24 +11,35 @@ export default function ReactComponent() {
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(600);
     const [active, setActive] = useState(false);
-    const [keySig, setKeySig] = useState('Major')
+    const [keySig, setKeySig] = useState('Major');
+    const [bgColor, setBgColor] = useState('#360071');
+    const [textColor, setTextColor] = useState('beige');
+    const [lineColor, setLineColor] = useState('beige');
     const refElement = useRef(null);
 
     useEffect(fetchData, []);
     useEffect(handleResizeEvent, []);
-    useEffect(initVis, [data]);
+    useEffect(initVis, [data, active]);
+    // useEffect(initVis, [active]);
     useEffect(updateVisOnResize, [width, height]);
+
+    let color = 'blue'
 
     function majorOrMinor() {
       if (active === false) {
-          console.log('clicked', active)
+          setBgColor('beige') 
           setActive(true)
           setKeySig('Major')
+          setTextColor('black')
+          setLineColor('beige')
+          
         }
       else {
-        console.log('clicked', active)
-        setActive(false)
-          setKeySig('Minor')
+          setBgColor('#360071') ;
+          setActive(false);
+          setKeySig('Minor');
+          setTextColor('beige')
+          setLineColor('#360071')
         } 
     }
 
@@ -67,9 +78,11 @@ export default function ReactComponent() {
                 data,
                 width,
                 height,
+                textColor,
+                backgroundColor: bgColor,
+                lineColor,
                 onDatapointClick: setActive
             };
-            console.log(d3Props)
             vis = new D3Component(refElement.current, d3Props);
         }
     }
@@ -81,8 +94,8 @@ export default function ReactComponent() {
     return (
         <div className='react-world'>
             <div>{keySig}</div>
-            <input type="checkbox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
-            <div ref={refElement} />
+            <input type="checkbox" id="checkBox" name="major/minor" value="major/minor" checked={active} onChange={majorOrMinor}></input>
+            <div id="d3Graph" key={new Date().getTime()} ref={refElement} />
         </div>
     );
 }
