@@ -11,7 +11,7 @@ export default function ReactComponent() {
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(600);
     const [active, setActive] = useState(false);
-    const [keySig, setKeySig] = useState('Major');
+    const [keySig, setKeySig] = useState('Minor');
     const [bgColor, setBgColor] = useState('#360071');
     const [textColor, setTextColor] = useState('beige');
     const [lineColor, setLineColor] = useState('beige');
