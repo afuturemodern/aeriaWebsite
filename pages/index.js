@@ -74,7 +74,7 @@ export async function getServerSideProps() {
   const results = await axios(process.env.API_CALL)
   return {
     props: {
-      results: results.data
+      results: results.data.filter((el, i) => i <= 21 )
     },
   }
 }
