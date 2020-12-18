@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 import styles from './graph.module.css';
 import D3Component from '../lib/d3display';
-// import { set } from 'd3';
 
 let vis;
 
@@ -15,6 +14,7 @@ export default function ReactComponent() {
     const [bgColor, setBgColor] = useState('#360071');
     const [textColor, setTextColor] = useState('beige');
     const [lineColor, setLineColor] = useState('beige');
+    const [zoomState, setCurrentZoomState] = useState();
     const refElement = useRef(null);
 
     useEffect(fetchData, []);
@@ -81,6 +81,7 @@ export default function ReactComponent() {
                 textColor,
                 backgroundColor: bgColor,
                 lineColor,
+                // currentZoomState,
                 onDatapointClick: setActive
             };
             vis = new D3Component(refElement.current, d3Props);

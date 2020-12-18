@@ -7,7 +7,7 @@ import mysql from 'serverless-mysql'
  * @var {object} db connects to the MySQL database
  */
 
-const db = mysql({
+export const db = mysql({
     config: {
         host: process.env.HOST,
         database: process.env.DATABASE,
@@ -17,14 +17,13 @@ const db = mysql({
 })
 
 // SQL Query
-const selectAllquery = 'SELECT * from songs_spotify'
+const selectAllquery = 'SELECT * from songs_spotify LIMIT 30'
 
 export default async (req, res) => {
     try {
         const results = await db.query(selectAllquery)
         await db.end()
-        // console.log(results)
-        res.status(200).json(results)
+        res.status(200).json(results) //temper filter because browser cant handle all the data coming in at the moment
         return
     } catch (error) {
         return console.log(error)
