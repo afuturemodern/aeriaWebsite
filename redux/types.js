@@ -1,0 +1,2 @@
+const GET_DATA = 'GET_DATA'
+const ACTIVE_TOGGLE = 'ACIVE_TOGGLE'

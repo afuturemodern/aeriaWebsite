@@ -1,12 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useQuery, gql } from '@apollo/client';
+
 import axios from 'axios'
 import styles from './graph.module.css';
 import D3Component from '../lib/d3display';
 
 let vis;
 
-export default function ReactComponent() {
-    const [data, setData] = useState(null);
+
+
+export default function Graph(props) {
+
+    const songsQuery = gql`
+    query allSongs{
+        songs{
+            name
+            artists
+            key
+            mode
+            tempo
+            releaseYear
+        }
+    }`
+
+    const [graphData, setGraphData] = useState(null);
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(600);
     const [active, setActive] = useState(false);
@@ -15,15 +32,19 @@ export default function ReactComponent() {
     const [textColor, setTextColor] = useState('beige');
     const [lineColor, setLineColor] = useState('beige');
     const [zoomState, setCurrentZoomState] = useState();
+    
+    const { data } = useQuery(songsQuery);
+    console.log('wayyy before data -->', data)
+    
+    
+    
     const refElement = useRef(null);
-
-    useEffect(fetchData, []);
+    console.log('props -->', props)
+    // useEffect(fetchData, []);
     useEffect(handleResizeEvent, []);
     useEffect(initVis, [data, active]);
     // useEffect(initVis, [active]);
     useEffect(updateVisOnResize, [width, height]);
-
-    let color = 'blue'
 
     function majorOrMinor() {
       if (active === false) {
@@ -43,18 +64,24 @@ export default function ReactComponent() {
         } 
     }
 
-    function fetchData() {
-        const runFetch = async () => {
-            try {
-                const results = await axios('http://localhost:3000/api/database')
-                await setData(results.data) //an array of objects
-            } catch (error) {
-                return { error }
-            }
-        }
-        runFetch()
+    // setGraphData(data)
+    // function fetchData() {
+        // const runFetch = async () => {
+        //     try {
+        //         const results = await axios('http://localhost:3000/api/database')
+        //         await setGraphData(results.data) //an array of objects
+        //     } catch (error) {
+        //         return { error }
+        //     }
+        // }
+        
+        // if (!data) console.log('no data')
+        // console.log('data -->', data)
+        // setGraphData(data)
+        
+        // runFetch()
         // Promise.resolve().then(() => setData(['a', 'b', 'c', 'd', 'e']));
-    }
+    // }
 
     function handleResizeEvent() {
         let resizeTimer;
@@ -73,9 +100,10 @@ export default function ReactComponent() {
     }
 
     function initVis() {
-        if (data && data.length) {
+        
+        if (data && data.songs.length) {
             const d3Props = {
-                data,
+                data: data.songs,
                 width,
                 height,
                 textColor,
@@ -84,13 +112,17 @@ export default function ReactComponent() {
                 // currentZoomState,
                 onDatapointClick: setActive
             };
+            console.log('vis data d3 props -->', d3Props.data)
             vis = new D3Component(refElement.current, d3Props);
         }
+        else console.log('no data')
     }
 
     function updateVisOnResize() {
         vis && vis.resize(width, height);
     }
+
+    
 
     return (
         <div className='react-world'>
