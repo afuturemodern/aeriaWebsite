@@ -1,28 +1,48 @@
 import styles from './searchbar.module.css';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react'
+import { connect } from 'react-redux'
+import { setInfo } from '../redux/actions/main.js'
+import { useQuery, gql } from '@apollo/client';
 import axios from 'axios';
 
-export default function Searchbar({ placeholder }) {
+const myQuery = gql`
+query allSongs{
+    songs{
+        name
+        artists
+        key
+        mode
+        tempo
+        releaseYear
+    }
+}
+`
+
+function Searchbar({ placeholder }) {
+  
   const [searchQuery, setSearchQuery] = useState('')
   const onChange = (e) => {
     console.log('on change e --> ', e);
     e.preventDefault();
     setSearchQuery(e.target.value);
   }
-
+  
   const  onClick = async (e) => {
     e.preventDefault();
     //on click post request info from query
     const results = await axios.post("http://localhost:3000/api/search", {
-	  headers: { "q": searchQuery }
+      headers: { "q": searchQuery }
     })
     console.log('results', results)
+    
   }
 
+  const { loading, error, data } = useQuery(myQuery);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  console.log('searchbar data -->', data.songs)
+  
   return (
     <div>
       <div className="field has-addons">
@@ -45,3 +65,13 @@ export default function Searchbar({ placeholder }) {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  userInfo: state.main,
+})
+
+const mapDispatchToProps = ({
+  setInfo
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar)

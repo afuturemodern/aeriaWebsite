@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { ApolloProvider, gql, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import fetch from 'cross-fetch'
 import axios from 'axios'
 
 // library.add(fab, faSearch)
@@ -10,11 +12,29 @@ import Graph from '../components/graph'
 
 import utilStyles from '../styles/utils.module.css'
 // import { getSortedPostsData } from '../lib/posts'
+  const myQuery = gql`
+  query allSongs{
+      songs{
+          name
+          artists
+          key
+          mode
+          tempo
+          releaseYear
+      }
+  }
+  `
 
-
+const client = new ApolloClient({
+    ssrMode: true,
+    link: new HttpLink({ uri: 'api/graphql', fetch, credentials: 'same-origin' }),
+    cache: new InMemoryCache()
+  });
 
 function Home({ results }) {
 
+  // const {data, loading} = useQuery(myQuery)
+  // console.log('index data', data)
   const display = !results ? 'loading song..' : Object.keys(results).map((song, i) => {
     return (
       <div key={`index-${i}`} >
@@ -31,6 +51,7 @@ function Home({ results }) {
 
   })
   return (
+    <ApolloProvider client={client}>
     <Layout home>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,6 +87,7 @@ function Home({ results }) {
         </footer>
       </div>
     </Layout>
+    </ApolloProvider>
   )
 }
 
